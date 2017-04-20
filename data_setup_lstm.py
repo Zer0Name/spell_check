@@ -159,11 +159,11 @@ model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True 
 model.add(LSTM(256,return_sequences=True , name = "second_layer"))
 model.add(LSTM(256, name = "third_layer"))
 model.add(Dense(y.shape[1], activation='softmax',name = name ) )
-model.load_weights("test.hdf5", by_name=True) 
+model.load_weights("weights.hdf5", by_name=True) 
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-filepath="test.hdf5"
+filepath="weights.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
 callbacks_list = [checkpoint]
 
