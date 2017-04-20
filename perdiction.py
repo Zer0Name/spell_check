@@ -35,8 +35,8 @@ class perdiction:
 		F.close()
 
 		# create mapping of characters to integers (0-25) and the reverse
-		self.char_to_int = dict((c, i) for i, c in enumerate(alphabet))
-		self.int_to_char = dict((i, c) for i, c in enumerate(alphabet))
+		self.char_to_int = dict((c, i) for i, c in enumerate(self.alphabet))
+		self.int_to_char = dict((i, c) for i, c in enumerate(self.alphabet))
 
 
 
@@ -60,8 +60,8 @@ class perdiction:
 		    if x[:1] == '$':
 		    	word = x
 		    else:       #([char_to_int[char] for char in sequence_in]) 
-				dataX.append([char_to_int[char] for char in x]) 
-				dataY.append(char_to_int[word[1:]])  
+				dataX.append([self.char_to_int[char] for char in x]) 
+				dataY.append(self.char_to_int[word[1:]])  
 
 		F.close()
 
@@ -71,7 +71,7 @@ class perdiction:
 		# reshape X to be [samples, time steps, features]
 		X = numpy.reshape(X, (X.shape[0], max_len, 1))
 
-		X = X / float(len(alphabet))
+		X = X / float(len(self.alphabet))
 		# one hot encode the output variable
 		y = np_utils.to_categorical(dataY)
 
@@ -82,7 +82,7 @@ class perdiction:
 		model.add(LSTM(256,return_sequences=True , name = "second_layer"))
 		model.add(LSTM(256, name = "third_layer"))
 		model.add(Dense(y.shape[1], activation='softmax',name = name ) )
-		model.load_weights("test.hdf5", by_name=True) 
+		model.load_weights("weights.hdf5", by_name=True) 
 
 		model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
@@ -91,7 +91,7 @@ class perdiction:
 
 
 		data = []
-		data.append([char_to_int[char] for char in filename]) 
+		data.append([self.char_to_int[char] for char in filename]) 
 		max_len = 15
 		pattern = pad_sequences(data, maxlen=max_len, dtype='float32')
 		X = numpy.reshape(pattern, (pattern.shape[0], max_len, 1))
@@ -99,7 +99,7 @@ class perdiction:
 		X = X / float(len(alphabet))
 		prediction = model.predict(X, verbose=0)
 		index = numpy.argmax(prediction)
-		result = int_to_char[index]
+		result = self.int_to_char[index]
 		return (result)
 
 d = perdiction()
