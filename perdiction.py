@@ -20,12 +20,11 @@ class perdiction:
 
 
 	def load_data(self, alphabet, char_to_int, int_to_char,data):
+
 		letters = """0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ `~!@#$%^&*()-_=+[]\{}|;':",./<>?  """
 		for letter in range (len(letters)):
 			self.alphabet.append(letters[letter])
 			
-		dataX = []
-		dataY = []
 		F = open(data,'r') 
 		for line in F:
 			x = line.strip().upper()
@@ -34,15 +33,15 @@ class perdiction:
 				self.alphabet.append(x[1:])
 			else:
 				self.alphabet.append(x)
-
-		    	#do nothing
 		F.close()
+		
 		# create mapping of characters to integers (0-25) and the reverse
 		self.char_to_int = dict((c, i) for i, c in enumerate(self.alphabet))
 		self.int_to_char = dict((i, c) for i, c in enumerate(self.alphabet))
 
-
-		F = open('data.txt','r') 
+		dataX = []
+		dataY = []
+		F = open(data,'r') 
 		for line in F:
 		    #print line.strip()
 		    x = line.strip().upper()
