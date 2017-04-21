@@ -16,6 +16,7 @@ class perdiction:
 		self.char_to_int = []
 		self.int_to_char = []
 		self.load_data(self.alphabet,self.char_to_int,self.int_to_char,self.data)
+		length = 0
 
 
 	def load_data(self, alphabet, char_to_int, int_to_char,data):
@@ -33,23 +34,9 @@ class perdiction:
 				self.alphabet.append(x)
 		    	#do nothing
 		F.close()
-
 		# create mapping of characters to integers (0-25) and the reverse
 		self.char_to_int = dict((c, i) for i, c in enumerate(self.alphabet))
 		self.int_to_char = dict((i, c) for i, c in enumerate(self.alphabet))
-
-
-
-
-
-
-
-	def perdict(self,filename):
-
-		F = open('last_state_name.txt','r')
-		for line in F:
-			name = line.strip()
-		F.close()
 
 		dataX = []
 		dataY = []
@@ -74,20 +61,25 @@ class perdiction:
 		X = X / float(len(self.alphabet))
 		# one hot encode the output variable
 		y = np_utils.to_categorical(dataY)
+		self.length = y.shape[1]
 
 
+
+	def perdict(self,filename):
+		filename = filename.upper()
+		F = open('last_state_name.txt','r')
+		for line in F:
+			name = line.strip()
+		F.close()
 
 		model = Sequential()
 		model.add(LSTM(256, input_shape=(15, 1), return_sequences=True , name = "first_layer"))
 		model.add(LSTM(256,return_sequences=True , name = "second_layer"))
 		model.add(LSTM(256, name = "third_layer"))
-		model.add(Dense(y.shape[1], activation='softmax',name = name ) )
+		model.add(Dense(self.length, activation='softmax',name = name ) )
 		model.load_weights("weights.hdf5", by_name=True) 
 
-		model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-
-
-
+		# model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 
 		data = []
@@ -96,11 +88,12 @@ class perdiction:
 		pattern = pad_sequences(data, maxlen=max_len, dtype='float32')
 		X = numpy.reshape(pattern, (pattern.shape[0], max_len, 1))
 
-		X = X / float(len(alphabet))
+		X = X / float(len(self.alphabet))
 		prediction = model.predict(X, verbose=0)
 		index = numpy.argmax(prediction)
 		result = self.int_to_char[index]
 		return (result)
 
 d = perdiction()
-print d.perdict("kindargarten")
+print d.perdict("cindergarden")
+

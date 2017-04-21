@@ -1,4 +1,4 @@
-F = open('hashwords.txt','r') 
+#F = open('hashwords.txt','r') 
 f = open('top6000.txt','r')
 x =0
 for line in f:
