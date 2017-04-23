@@ -5,6 +5,7 @@ aardvark
 aardwolf
 ab
 aba
+definitely
 abaca
 abacist
 aback
@@ -13,6 +14,7 @@ abacus
 abaddon
 abaft
 abalienate
+anyway
 abalienation
 abalone
 abampere
@@ -192,10 +194,13 @@ aborigines
 aborning
 abort
 aborticide
+creatures
 abortifacient
 abortion
 abortionist
 abortive
+Anyway
+problems
 abortively
 abortus
 abound
