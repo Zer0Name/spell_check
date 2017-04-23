@@ -12,6 +12,11 @@ class main:
 		#print self.string
 		self.string = self.recomple()
 		print self.string
+		F = open("new "+filename,'w') 
+		F.write(self.string)
+		F.close()
+
+
 
 	def load_file(self,filename):
 		F = open(filename,'r') 
