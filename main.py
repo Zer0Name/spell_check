@@ -37,9 +37,15 @@ class main:
 			z =0
 			for w in range(len(self.words)):
 				if self.string[x].lower() == self.words[w]: #the word is spelled correctly
+					#print self.string[x]
 					z =1
-
-
+				elif len(self.string[x])==1:
+					s = list(self.string[x])
+					# print type(s[0])
+					# print type(chr(ord(s[0])+2))
+					if not chr(ord(s[0])+2).isalpha():
+						z=1
+				
 			if z == 1:
 				print self.string[x]
 			else:
