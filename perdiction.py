@@ -95,9 +95,9 @@ class perdiction:
 		result = self.int_to_char[index]
 		return (result)
 
-d = perdiction()
-while True:
-	text = raw_input("enter a word: ")
-	print d.perdict(text)
+# d = perdiction()
+# while True:
+# 	text = raw_input("enter a word: ")
+# 	print d.perdict(text)
 
 
