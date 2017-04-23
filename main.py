@@ -1,4 +1,5 @@
 import perdiction
+import re
 class main:
 
 	def __init__(self,filename):
@@ -16,11 +17,12 @@ class main:
 		for line in F:
 			string = string + line
 		F.close()
-
-		string = string.split()
-		for i in range(len(string)):
-			string[i] = string[i].rstrip('?:!.,;')
-
+		string = re.findall(r"[\w']+|[.,!?;]", string)
+		# for i in range(len(string)):
+		# 	string[i] = string[i].rstrip('?:!.,;')
+		print "got to here"
+		 
+		print string
 		return string
 
 
